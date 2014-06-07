@@ -90,7 +90,7 @@ if(isset($_POST['submit'])){
     if($result['success']){
         $_SESSION['transstock'] = $result['id'];
         $_SESSION['message'] = "Transstock ID : " . $result['id'];    
-        changebinstatus();
+        //changebinstatus();
         header('Location: inputdata.php');
     }else{
         $_SESSION['message'] = $result['error'];

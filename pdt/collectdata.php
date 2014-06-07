@@ -228,14 +228,14 @@ if(isset($_POST['submit'])){
             if(mysql_num_rows($rs) == 1){            
                 $result = updatetransstokdetail($_POST['quantity']);
                 if($result['success']){
-                    header('Location: inputdata.php');
+                    header('Location: gondola.php');
                 }else{
                    $_SESSION['message'] = $result['error']; 
                 }
             }else{
                 $result = inserttransstockdetail($_POST['quantity']);
                 if($result['success']){
-                    header('Location: inputdata.php');
+                    header('Location: gondola.php');
                 }else{
                    $_SESSION['message'] = $result['error']; 
                 }
