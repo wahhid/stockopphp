@@ -75,6 +75,10 @@ if(isset($_POST['submit'])){
                     <td><?php echo $_SESSION['periodename']; ?></td>
                 </tr>
                 <tr>
+                    <td>Bin</td>
+                    <td><?php echo $_SESSION['binname']; ?></td>
+                </tr>                
+                <tr>
                     <td>Ean</td>
                     <td><input type="text" name="ean" value=""/></td>
                 </tr>         
@@ -84,7 +88,7 @@ if(isset($_POST['submit'])){
                 </tr>
                 <tr>
                     <td></td>
-                    <td><a href="closetrans.php">Close Transaction</a></td>
+                    <td><a href="gondola.php">Back</a></td>
                 </tr>
                 <tr>
                     <td></td>
