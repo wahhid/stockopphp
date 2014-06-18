@@ -52,6 +52,7 @@ Ext.define('App.view.PeriodeList' ,{
             handler: function(){
                 stockbinstore.clearFilter(true);
                 stockbinstore.filter('periode',obj.id);
+                stockbinstore.load();
                 var win = stockgridwindow;
                 win.show();                
             }
@@ -111,7 +112,7 @@ Ext.define('App.view.PeriodeList' ,{
         //
         //Start Store
         var stockbinstore = Ext.create('Ext.data.Store', {    
-            fields: ['warehouse','pid','storagetype','itemno','storagebin','quantno','dc','storageloc','articleno','description','batchno','stkcat','specialstock','countedqty','counteduom'],             
+            fields: ['warehouse','pid','storagetype','itemno','storagebin','quantno','dc','storageloc','articleno','description','batchno','stkcat','specialstock','countedqty','counteduom','stocksap','diff'],             
             autoSync: true,
             remoteFilter: true,
             pageSize: 10,
@@ -326,7 +327,9 @@ Ext.define('App.view.PeriodeList' ,{
                 {header: 'Stk Cat', dataIndex: 'stkcat', flex: 1},
                 {header: 'Special Stock', dataIndex: 'specialstock', flex: 1},
                 {header: 'Counted Qty', dataIndex: 'countedqty', flex: 1},
-                {header: 'Counted UoM', dataIndex: 'counteduom', flex: 1}
+                {header: 'Counted UoM', dataIndex: 'counteduom', flex: 1},
+                {header: 'Stock SAP', dataIndex: 'stocksap', flex: 1},
+                {header: 'Diff', dataIndex: 'diff', flex: 1},
             ],
             dockedItems: [
                 {

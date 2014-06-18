@@ -20,25 +20,25 @@ function isempty($var){
     }
 }
 
-
 function insertstock($row,$periode){
-    $query = "INSERT INTO stockbin (dc,periode,warehouse,pid,storagetype,itemno,storagebin,quantno,storageloc,articleno,description,batchno,stkcat,specialstock,countedqty,counteduom) VALUES (" .
+    $query = "INSERT INTO stockbin (dc,periode,warehouse,pid,storagetype,itemno,storagebin,quantno,storageloc,articleno,description,batchno,stkcat,specialstock,countedqty,counteduom,stocksap) VALUES (" .
             "'" . $_SESSION['dc'] . "'," .
             $periode . "," .
             "'" . $row[0] . "'," .
-            isempty($row[1]) . "," .
-            isempty($row[2]) . "," .
-            isempty($row[3]) . "," .
+            "'" . $row[1] . "'," .
+            "'" . $row[2] . "'," .
+            "'" . $row[3] . "'," .
             "'" . $row[4] . "'," .
             isempty($row[5]) . "," .
-            isempty($row[7]) . "," .
+            "'" . $row[7] . "'," .
             "'" . $row[8] . "'," .
-            "'" . $row[9] . "'," .
+            "'" . str_replace("'", " ", $row[9]) . "'," .
             "'" . $row[10] . "'," .
             "'" . $row[11] . "'," .
             "'" . $row[12] . "'," .
             isempty($row[13]) . "," .                       
-            "'" . $row[14]. "'" .
+            "'" . $row[14]. "'," .
+            isempty($row[15])    .
             ")";    
     $rs = mysql_query($query);
     if($rs){
@@ -79,7 +79,7 @@ if ($returnResponse != "") {
         $success = 0;
         $failed = 0;
         $message='';
-        while(! feof($file)){
+        while(!feof($file)){
             $totalrow++;
             $row = fgetcsv($file,null,",","\"");
             $resultinsertstock = insertstock($row,$periode); 
@@ -93,12 +93,12 @@ if ($returnResponse != "") {
         fclose($file);           
         echo json_encode(array(
             "success" => true,
-            "Message" => "Success : " . $success . ", Failed : " . $failed . ", Total : " . $totalrow             
+            "message" => "success : " . $success  . ",message:" . $message . ", Failed : " . $failed . ", Total : " . $totalrow             
         ));          
     } else {
         echo json_encode(array(
             "success" => false,
-            "errorMessage" => "Error Process File"
+            "message" => "Error Process File"
         ));
     }                
 }

@@ -17,9 +17,9 @@ $query = "INSERT INTO bin (name,description,dc,createddate,createdby,updateddate
         "'" .  $description  . "'," .
         "'" .  $dc  . "'," .
         "'" .  date('Y-m-d h:i:s') . "'," .
-        "'" .  $_SESSION['username']  . "'," .
+        "'" .  $_SESSION['login']  . "'," .
         "'" .  date('Y-m-d h:i:s') . "'," .
-        "'" .  $_SESSION['username']  . "'" .
+        "'" .  $_SESSION['login']  . "'" .
         ")";
 $rs = mysql_query($query);
 if (!$rs) {

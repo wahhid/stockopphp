@@ -17,8 +17,9 @@ function stockbins($periode){
     return objectarray($query);
 }
 
-function updatestockbin($id, $qty){    
-    $querystockbinupdate = "UPDATE stockbin SET countedqty=" . $qty . " WHERE id=" . $id;   
+function updatestockbin($id, $stocksap, $qty){    
+    $diff = $stocksap - $qty;
+    $querystockbinupdate = "UPDATE stockbin SET countedqty=" . $qty . ",diff=" . $diff . " WHERE id=" . $id;   
     return update($querystockbinupdate);
 }
 
@@ -78,12 +79,7 @@ if($resultperiode['success']){
                 }else{                    
                     $qty = 0;
                 }
-                $resultupdatestockbin = updatestockbin($stockbin['id'], $qty);           
-//                if($resultupdatestockbin['success']){
-//                     echo '{success:true,Message:"Process Successfully"}';
-//                }else{
-//                     echo '{success:false,errorMessage:"' . $resultupdatestockbin['error'] . '"}';
-//                }
+                $resultupdatestockbin = updatestockbin($stockbin['id'], $stockbin['stocksap'], $qty);           
             }        
             echo '{success:true,Message:"Process All Successfully"}';            
         }else{

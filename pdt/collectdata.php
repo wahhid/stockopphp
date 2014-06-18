@@ -258,7 +258,7 @@ if(isset($_POST['submit'])){
         }        
     }else{
         $_SESSION['lastqty'] = 0;        
-        $_SESSION['message'] = $resultfind['query'];
+        //$_SESSION['message'] = $resultfind['query'];
     }
 }
 

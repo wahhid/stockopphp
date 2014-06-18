@@ -12,6 +12,11 @@ if(!isset($_SESSION['user'])){
     header('Location: index.php');
 }
 
+function check_bin_article($binname,$articleno){    
+    $query = "SELECT * FROM stockbin WHERE storagebin='" . $binname . "' AND articleno='" . $articleno . "'";    
+    return objectsingle($query);    
+}
+
 function product($ean){
     $query = "SELECT * FROM product WHERE ean='" . $ean . "'";
     $rs = mysql_query($query);
@@ -41,16 +46,21 @@ function product($ean){
 
 if(isset($_POST['submit'])){
     if($_POST['ean'] != ''){
-        $result = product($_POST['ean']);
-        if($result['success']){            
-            $_SESSION['ean'] = $_POST['ean'];
-            $_SESSION['uom'] = $result['data']['uom'];            
-            $_SESSION['productname'] = $result['data']['productname'];
-            $_SESSION['article'] = $result['data']['article'];
-            header('Location: inputbatch.php');
-            //header('Location: collectdata.php');
+        $rs_product = product($_POST['ean']);
+        if($rs_product['success']){            
+            $product = $rs_product['data'];
+            $rs_stockbin = check_bin_article($_SESSION['binname'], $product['article']);
+            if($rs_stockbin['success']){
+                $_SESSION['ean'] = $_POST['ean'];
+                $_SESSION['uom'] = $product['uom'];            
+                $_SESSION['productname'] = $product['productname'];
+                $_SESSION['article'] = $product['article'];
+                header('Location: inputbatch.php');
+            }else{
+               $_SESSION['message'] = "Product not found on bin";
+            }                                                    
         }else{
-            $_SESSION['message'] = $result['error'];
+            $_SESSION['message'] = $rs_product['error'];
         }        
     }else{
         $_SESSION['message'] = "Product not found!";
